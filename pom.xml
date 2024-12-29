@@ -6,9 +6,7 @@
     <artifactId>Frameworkcucumber</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
-    <name>Frameworkcucumber</name>
-         
+    <name>Frameworkcucumber</name>       
     <url>http://maven.apache.org</url>
 
     <properties>
