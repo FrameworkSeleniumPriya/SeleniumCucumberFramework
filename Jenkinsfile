@@ -50,14 +50,6 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
-            steps {
-                echo 'Cleaning up...'
-                // Avoid killing all Java processes; instead, only kill specific processes related to Allure
-                bat 'taskkill /F /IM allure-server.exe /T'  // Example: Only kill Allure server if it's running
-            }
-        }
-
         stage('Send Allure Report via Email') {
             steps {
                 script {
