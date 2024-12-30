@@ -5,13 +5,13 @@ Feature: Home Page Feature
       | username | password |
       | Admin    | admin123 |
 
-  @accounts
+  @regression @sanity
   Scenario: Accounts page title
     Given user is on home page
     When user gets the title of the page
     Then page title should be "OrangeHRM"
 
-  @accounts
+  @regression @sanity
   Scenario: Accounts section count
     Given user is on home page
     Then user gets accounts section
