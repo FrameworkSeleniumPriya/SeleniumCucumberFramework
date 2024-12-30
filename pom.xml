@@ -176,18 +176,18 @@
                     <useUnlimitedThreads>false</useUnlimitedThreads>
                 </configuration>
             </plugin>
-            <plugin>
+<!--             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version> <!-- Use the latest version -->
-                <executions>
+<!--                 <executions>
                     <execution>
                         <goals>
                             <goal>serve</goal> <!-- Optional if you want to serve the report directly -->
-                        </goals>
+<!--                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> --> --> -->
 <!--          -->
 
             <!-- <plugin> <groupId>org.apache.maven.plugins</groupId>
