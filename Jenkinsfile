@@ -12,7 +12,7 @@ pipeline {
     }
 
     parameters {
-        string(name: 'CUCUMBER_TAGS', defaultValue: '@smoke', description: 'Tags to run, e.g., @smoke, @regression')
+       choice(name: 'CUCUMBER_TAGS', choices: ['@smoke', '@regression', '@sanity','@test'], description: 'Tags to run, e.g., @smoke, @regression')
         
     }
 
