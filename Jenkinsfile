@@ -57,7 +57,7 @@ pipeline {
                     emailext(
                         subject: "Allure Report - ${currentBuild.fullDisplayName}",
                         body: "Please find attached the Allure report for the Jenkins build.",
-                        to: 'seleniumframeworkpriya@gmail.com', // Add the email recipient
+                        to: 'seleniumpracticepriya@gmail.com', // Add the email recipient
                         attachmentsPattern: '**/allure-report/*'  // Attach the Allure report to the email
                     )
                 }
