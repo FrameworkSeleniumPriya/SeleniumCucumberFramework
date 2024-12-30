@@ -55,6 +55,13 @@ pipeline {
             }
         }
 
+        stage('Publish Allure Report') {
+            steps {
+                echo 'Publishing Allure report...'
+                allure includeProperties: false, jdk: '', results: [[path: "${env.ALLURE_RESULTS_DIR}"]]
+            }
+        }
+
         stage('Send Allure Report via Email') {
             steps {
                 script {
