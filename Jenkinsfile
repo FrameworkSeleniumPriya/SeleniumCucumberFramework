@@ -29,21 +29,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'mvn clean install'
+                bat 'mvn clean install'
             }
         }
 
         stage('Run Tests') {
             steps {
                 echo 'Executing tests...'
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
         stage('Generate Allure Report') {
             steps {
                 echo 'Generating Allure report...'
-                sh 'allure serve allure-results'
+                bat 'allure serve allure-results'
             }
         }
     }
