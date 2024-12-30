@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven'  // Replace 'Maven' with your configured Maven installation name
-        jdk 'JDK'      // Replace 'JDK' with your configured JDK installation name
-    }
+    // tools {
+    //     maven 'Maven'  // Replace 'Maven' with your configured Maven installation name
+    //     jdk 'JDK'      // Replace 'JDK' with your configured JDK installation name
+    // }
 
     environment {
         ALLURE_RESULTS_DIR = 'target/allure-results'
