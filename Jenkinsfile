@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven'  // Replace 'Maven' with your configured Maven installation name
-        jdk 'JDK21'      // Replace 'JDK' with your configured JDK installation name
+        jdk 'JDK21'    // Replace 'JDK' with your configured JDK installation name
     }
 
     environment {
@@ -46,11 +46,12 @@ pipeline {
                 bat 'allure serve allure-results'
             }
         }
+
+        stage('Cleanup') {
+            steps {
+                echo 'Cleaning up...'
+                bat 'taskkill /F /IM java.exe /T'  // This kills any java processes running the Allure server (or other Java-based processes).
+            }
+        }
     }
-    stage('Cleanup') {
-    steps {
-        echo 'Cleaning up...'
-        bat 'taskkill /F /IM java.exe /T'  // This kills any java processes running the Allure server (or other Java-based processes).
-    }
-}
 }
