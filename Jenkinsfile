@@ -41,8 +41,8 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    echo "Executing tests with tags: ${params.CUCUMBER_TAGS}
-                    bat "mvn test -Dcucumber.filter.tags=${params.CUCUMBER_TAGS}
+                    echo "Executing tests with tags: ${params.CUCUMBER_TAGS}"
+                    bat "mvn test -Dcucumber.filter.tags=${params.CUCUMBER_TAGS}"
                 }
             }
         }
