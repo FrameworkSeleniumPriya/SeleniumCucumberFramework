@@ -47,11 +47,10 @@ pipeline {
             }
         }
 
-        stage('Generate Allure Report') {
+       stage('Generate Allure Report') {
             steps {
                 echo 'Generating Allure report...'
-                bat 'allure generate allure-results --clean -o allure-report'
-                archiveArtifacts allowEmptyArchive: true, artifacts: '**/allure-report/**/*', onlyIfSuccessful: true
+                bat "allure generate ${env.ALLURE_RESULTS_DIR} -o ${env.ALLURE_REPORT_DIR} --clean"
             }
         }
 
