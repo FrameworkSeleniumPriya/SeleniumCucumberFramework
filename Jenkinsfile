@@ -11,6 +11,11 @@ pipeline {
         ALLURE_REPORT_DIR = 'allure-report'
     }
 
+    parameters {
+        string(name: 'CUCUMBER_TAGS', defaultValue: '@smoke', description: 'Tags to run, e.g., @smoke, @regression')
+        
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -35,17 +40,17 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                echo 'Executing tests...'
-                bat 'mvn test'
+                script {
+                    echo "Executing tests with tags: ${params.CUCUMBER_TAGS}
+                    bat "mvn test -Dcucumber.filter.tags=${params.CUCUMBER_TAGS}
+                }
             }
         }
 
         stage('Generate Allure Report') {
             steps {
                 echo 'Generating Allure report...'
-                // Ensure allure-results are generated before generating the report
                 bat 'allure generate allure-results --clean -o allure-report'
-                // Archive the results for further steps, including sending via email
                 archiveArtifacts allowEmptyArchive: true, artifacts: '**/allure-report/**/*', onlyIfSuccessful: true
             }
         }
@@ -53,12 +58,11 @@ pipeline {
         stage('Send Allure Report via Email') {
             steps {
                 script {
-                    // Send an email with the allure-report artifact
                     emailext(
                         subject: "Allure Report - ${currentBuild.fullDisplayName}",
                         body: "Please find attached the Allure report for the Jenkins build.",
-                        to: 'seleniumpracticepriya@gmail.com', // Add the email recipient
-                        attachmentsPattern: '**/allure-report/*'  // Attach the Allure report to the email
+                        to: 'seleniumpracticepriya@gmail.com',
+                        attachmentsPattern: '**/allure-report/**/*'
                     )
                 }
             }
