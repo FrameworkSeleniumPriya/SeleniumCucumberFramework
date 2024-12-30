@@ -7,8 +7,8 @@ pipeline {
     }
 
     environment {
-        ALLURE_RESULTS_DIR = 'target/allure-results'
-        ALLURE_REPORT_DIR = 'target/allure-report'
+        ALLURE_RESULTS_DIR = 'allure-results' // Make sure this path is correct
+        ALLURE_REPORT_DIR = 'allure-report'
     }
 
     stages {
@@ -43,7 +43,10 @@ pipeline {
         stage('Generate Allure Report') {
             steps {
                 echo 'Generating Allure report...'
-                bat 'allure serve allure-results'
+                // Ensure allure-results are generated before generating the report
+                bat 'allure generate allure-results --clean -o allure-report'
+                // Archive the results for further steps, including sending via email
+                archiveArtifacts allowEmptyArchive: true, artifacts: '**/allure-report/**/*', onlyIfSuccessful: true
             }
         }
 
@@ -52,6 +55,26 @@ pipeline {
                 echo 'Cleaning up...'
                 bat 'taskkill /F /IM java.exe /T'  // This kills any java processes running the Allure server (or other Java-based processes).
             }
+        }
+
+        stage('Send Allure Report via Email') {
+            steps {
+                script {
+                    // Send an email with the allure-report artifact
+                    emailext(
+                        subject: "Allure Report - ${currentBuild.fullDisplayName}",
+                        body: "Please find attached the Allure report for the Jenkins build.",
+                        to: 'seleniumframeworkpriya@gmail.com', // Add the email recipient
+                        attachmentsPattern: '**/allure-report/*'  // Attach the Allure report to the email
+                    )
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs() // Clean up workspace after build
         }
     }
 }
