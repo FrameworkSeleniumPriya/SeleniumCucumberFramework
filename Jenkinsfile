@@ -47,4 +47,10 @@ pipeline {
             }
         }
     }
+    stage('Cleanup') {
+    steps {
+        echo 'Cleaning up...'
+        bat 'taskkill /F /IM java.exe /T'  // This kills any java processes running the Allure server (or other Java-based processes).
+    }
+}
 }
